@@ -1,5 +1,5 @@
 import api from "./api.js";
-
+import { handleError } from "./errorHandler";
 const API_URL = '/about';
 
 // --- BOD OPERATIONS ---
@@ -9,8 +9,8 @@ export const getAllBOD = async () => {
         const response = await api.get(`${API_URL}/bod`);
         return response.data;
     } catch (error) {
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const createBOD = async (bodData) => {
@@ -34,9 +34,8 @@ export const createBOD = async (bodData) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error creating BOD member:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const updateBOD = async (id, bodData) => {
@@ -60,18 +59,17 @@ export const updateBOD = async (id, bodData) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error updating BOD member:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const deleteBOD = async (id) => {
     try {
         const response = await api.delete(`${API_URL}/bod/${id}`);
         return response.data;
-    } catch (error) {
-        throw error;
-    }
+    }catch (error) {
+  handleError(error);
+}
 };
 
 
@@ -82,9 +80,8 @@ export const getAllTeamMembers = async () => {
         const response = await api.get(`${API_URL}/team-members`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching team members:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const getTeamMemberById = async (id) => {
@@ -92,9 +89,8 @@ export const getTeamMemberById = async (id) => {
         const response = await api.get(`${API_URL}/team-members/${id}`);
         return response.data;
     } catch (error) {
-        console.error("Error fetching team member:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const createTeamMember = async (data) => {
@@ -118,9 +114,8 @@ export const createTeamMember = async (data) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error creating team member:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const updateTeamMember = async (id, data) => {
@@ -144,9 +139,8 @@ export const updateTeamMember = async (id, data) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error updating team member:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const deleteTeamMember = async (id) => {
@@ -154,9 +148,8 @@ export const deleteTeamMember = async (id) => {
         const response = await api.delete(`${API_URL}/team-members/${id}`);
         return response.data;
     } catch (error) {
-        console.error("Error deleting team member:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 // --- PROGRAMS OPERATIONS ---
@@ -175,8 +168,8 @@ export const getProgramById = async (id) => {
         const response = await api.get(`${API_URL}/programs/${id}`);
         return response.data;
     } catch (error) {
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const createProgram = async (data) => {
@@ -198,9 +191,8 @@ export const createProgram = async (data) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error creating program:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const updateProgram = async (id, data) => {
@@ -222,9 +214,8 @@ export const updateProgram = async (id, data) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Error updating program:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };
 
 export const deleteProgram = async (id) => {
@@ -232,7 +223,6 @@ export const deleteProgram = async (id) => {
         const response = await api.delete(`${API_URL}/programs/${id}`);
         return response.data;
     } catch (error) {
-        console.error("Error deleting program:", error);
-        throw error;
-    }
+  handleError(error);
+}
 };

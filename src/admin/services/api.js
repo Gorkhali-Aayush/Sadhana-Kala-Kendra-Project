@@ -1,14 +1,15 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
-const SERVER_ROOT_URL = API_BASE_URL.replace(/\/api$/, "");
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const SERVER_ROOT_URL = API_BASE_URL.split("/api")[0];
 
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },
-    withCredentials: true, 
+    withCredentials: true,
+    timeout: 15000, 
 });
 
 // Placeholder for the function registered by AdminRoutes
@@ -20,14 +21,16 @@ export const setUnauthorizedRedirectCallback = (callback) => {
 };
 
 api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            // Trigger the registered redirect callback in AdminRoutes
-            onUnauthorizedCallback();
-        }
-        return Promise.reject(error);
+  (response) => response,
+  (error) => {
+    if (
+      error.response?.status === 401 &&
+      window.location.pathname.startsWith("/admin")
+    ) {
+      onUnauthorizedCallback();
     }
+    return Promise.reject(error);
+  }
 );
 
 // Correctly export required variables
